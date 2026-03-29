@@ -94,12 +94,12 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
         <h3
             class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400"
         >
-            Description
+            تفاصيل المنتج
         </h3>
         <p class="text-slate-600 font-medium leading-relaxed text-lg">
             {
                 product.description ||
-                    "No description available for this product at this time."
+                    "ما فيش تفاصيل متاحة حالياً عن هذا المنتج."
             }
         </p>
     </div>
@@ -156,18 +156,18 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
                 class="w-full bg-primary text-white rounded-2xl py-5 px-8 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-primary/80 transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={product.stock <= 0}
             >
-                <Icon name="lucide:shopping-bag" class="w-5 h-5" />
-                Add to Cart
+                <Icon name="simple-icons:whatsapp" class="w-5 h-5" />
+                اطلب الآن عبر واتساب
             </button>
 
             <!-- Buy Now -->
             <button
                 id="buy-now-btn"
-                class="sm:col-span-2 w-full bg-primary text-white rounded-2xl py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-primary/80 transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                class="sm:col-span-2 w-full bg-secondary text-black rounded-2xl py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-secondary/80 transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
                 disabled={product.stock <= 0}
             >
-                <Icon name="lucide:credit-card" class="w-5 h-5" />
-                Buy Now
+                <Icon name="lucide:phone" class="w-5 h-5" />
+                استعلام سريع
             </button>
         </div>
     </div>
@@ -192,7 +192,6 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
 </div>
 
 <script>
-    import { addToCart } from "../../store/cartStore";
     import { toast } from "sonner";
 
     function setupPurchaseActions() {
@@ -207,6 +206,14 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
         const quantityDisplay = document.getElementById("quantity-display");
         const addToCartBtn = document.getElementById("add-to-cart-btn");
         const buyNowBtn = document.getElementById("buy-now-btn");
+
+        const whatsappNumber = "201008050002"; // عيّن رقم واتساب المصنع هنا
+
+        const createWhatsappUrl = (qty) => {
+            const message = `السلام عليكم، أنا مهتم بـ ${product.name} السعر ${product.price} جنيه. الكمية: ${qty}.`; 
+            return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        };
+
 
         let quantity = 1;
 
@@ -234,21 +241,15 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
         });
 
         addToCartBtn?.addEventListener("click", () => {
-            const result = addToCart(product, quantity);
-            if (result.success) {
-                toast.success(result.message);
-            } else {
-                toast.error(result.message);
-            }
+            const whatsappUrl = createWhatsappUrl(quantity);
+            window.open(whatsappUrl, "_blank");
+            toast.success("تم فتح واتساب للطلب. إحنا هنرد عليك خلال دقائق.");
         });
 
         buyNowBtn?.addEventListener("click", () => {
-            const result = addToCart(product, quantity);
-            if (result.success) {
-                window.location.href = "/checkout";
-            } else {
-                toast.error(result.message);
-            }
+            const whatsappUrl = createWhatsappUrl(quantity);
+            window.open(whatsappUrl, "_blank");
+            toast.success("تم فتح واتساب للاستعلام السريع. إحنا هنرد عليك خلال دقائق.");
         });
 
         updateUI();

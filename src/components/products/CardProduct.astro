@@ -21,7 +21,7 @@ const { title, price, images, stock, slug } = Astro.props;
     >
         <button
             class="add-to-favorite-btn btn btn-circle btn-sm bg-white hover:bg-primary hover:text-white border-none shadow-md"
-            aria-label="Add to Favorites"
+            aria-label="أضف للمفضلة"
             data-favorite={JSON.stringify({
                 id: slug,
                 name: title,
@@ -38,7 +38,7 @@ const { title, price, images, stock, slug } = Astro.props;
         </button>
         <button
             class="add-to-cart-btn btn btn-circle btn-sm bg-white hover:bg-primary hover:text-white border-none shadow-md"
-            aria-label="Add to Cart"
+            aria-label="اطلب الآن"
             data-product={JSON.stringify({
                 id: slug,
                 name: title,
@@ -117,12 +117,12 @@ const { title, price, images, stock, slug } = Astro.props;
                     stock > 0 ? (
                         <span class="text-success flex items-center gap-1">
                             <span class="w-2 h-2 rounded-full bg-success" />
-                            In Stock
+                            متاح
                         </span>
                     ) : (
                         <span class="text-error flex items-center gap-1">
                             <span class="w-2 h-2 rounded-full bg-error" />
-                            Out of Stock
+                            غير متاح
                         </span>
                     )
                 }

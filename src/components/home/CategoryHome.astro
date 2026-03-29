@@ -1,6 +1,6 @@
 ---
 import CategoryCardHome from "./CategoryCardHome.astro";
-import { categories, featuredLinks } from "../../data/home.ts";
+import { categories } from "../../data/home.ts";
 ---
 
 <section class="py-10 bg-white">
@@ -8,7 +8,7 @@ import { categories, featuredLinks } from "../../data/home.ts";
         <h2
             class="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-12"
         >
-            Categories
+            الفئات
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -18,17 +18,6 @@ import { categories, featuredLinks } from "../../data/home.ts";
                         name={category.name}
                         image={category.image}
                         path={category.path}
-                    />
-                ))
-            }
-            {
-                featuredLinks.map((link) => (
-                    <CategoryCardHome
-                        name={link.name}
-                        image={link.image}
-                        path={link.path}
-                        className={link.className}
-                        imageClass={link.imageClass}
                     />
                 ))
             }

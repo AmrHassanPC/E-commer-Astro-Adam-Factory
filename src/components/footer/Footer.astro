@@ -8,26 +8,24 @@ import { Icon } from "astro-icon/components";
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
         >
             <!-- Brand Section -->
-            <div class="col-span-1 lg:col-span-1">
-                <a href="/" class="flex items-center gap-2 mb-6 group">
-                    <div
-                        class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg"
-                    >
-                        <Icon
-                            name="lucide:shopping-bag"
-                            class="w-6 h-6 text-primary-content"
-                        />
-                    </div>
-                    <span
-                        class="text-2xl font-bold tracking-tighter gradient-text"
-                    >
-                        E-COMMER
-                    </span>
-                </a>
-                <p class="text-base-content/70 mb-6 leading-relaxed">
-                    Premium tech gear for the modern professional. Elevate your
-                    digital lifestyle with our curated collection.
-                </p>
+        <div class="col-span-1 lg:col-span-1">
+            <a href="/" class="flex items-center gap-3 mb-6 group whitespace-nowrap">
+                <div class="w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                 <img 
+                    src="/Adam-Factory-Iconic-Mark.svg" 
+                    alt="مصنع ادم للاثاث" 
+                    class="w-full h-full object-contain"
+                />
+            </div>
+            
+            <span class="text-2xl font-bold tracking-tight text-[#13182B]">
+                مصنع ادم للاثاث
+            </span>
+        </a>
+
+        <p class="text-base-content/70 mb-6 leading-relaxed">
+           مصنع اثاث فى محافظة دمياط متخصص فى صناعة الانتريهات والركن الركن والصالونات.
+        </p>
                 <!-- Socials -->
                 <div class="flex gap-4">
                     <a
@@ -99,28 +97,28 @@ import { Icon } from "astro-icon/components";
                 <ul class="space-y-4">
                     <li>
                         <a
-                            href="#"
+                            href="/contact"
                             class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
                             >Contact Us</a
                         >
                     </li>
                     <li>
                         <a
-                            href="#"
+                            href="/faq"
                             class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
                             >FAQs</a
                         >
                     </li>
                     <li>
                         <a
-                            href="#"
+                            href="/shipping"
                             class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
                             >Shipping & Returns</a
                         >
                     </li>
                     <li>
                         <a
-                            href="#"
+                            href="/contact"
                             class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
                             >Order Status</a
                         >
@@ -162,10 +160,10 @@ import { Icon } from "astro-icon/components";
                 &copy; {new Date().getFullYear()} E-COMMER. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-base-content transition-colors"
+                <a href="/privacy" class="hover:text-base-content transition-colors"
                     >Privacy Policy</a
                 >
-                <a href="#" class="hover:text-base-content transition-colors"
+                <a href="/terms" class="hover:text-base-content transition-colors"
                     >Terms of Service</a
                 >
             </div>

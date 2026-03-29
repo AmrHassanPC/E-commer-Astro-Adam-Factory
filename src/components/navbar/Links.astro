@@ -2,29 +2,11 @@
 import { Icon } from "astro-icon/components";
 
 const categories = [
-    { name: "Home", href: "/" },
-    {
-        name: "Computers",
-        href: "/category/computers",
-        subcategories: [
-            { name: "All", href: "/category/computers" },
-            { name: "Notebooks", href: "/category/computers?sub=notebooks" },
-            { name: "Keyboards", href: "/category/computers?sub=keyboards" },
-            { name: "Monitors", href: "/category/computers?sub=monitors" },
-        ],
-    },
-    {
-        name: "Phones",
-        href: "/category/phones",
-        subcategories: [
-            { name: "All", href: "/category/phones" },
-            { name: "Android", href: "/category/phones?sub=android" },
-            { name: "iPhone", href: "/category/phones?sub=iphone" },
-            { name: "Accessories", href: "/category/accessories" },
-        ],
-    },
-    { name: "Audio", href: "/category/audio" },
-    { name: "Accessories", href: "/category/accessories" },
+    { name: "الرئيسية", href: "/" },
+    { name: "انتريهات", href: "/category/انتريهات" },
+    { name: "ركن", href: "/category/ركن" },
+    { name: "صالونات", href: "/category/صالونات" },
+    { name: "ترابيزات", href: "/category/ترابيزات" },
 ];
 ---
 
@@ -40,7 +22,7 @@ const categories = [
                 id="mobile-links-toggle"
                 class="flex items-center gap-2 h-full px-2 hover:bg-white/10 transition-colors cursor-pointer"
             >
-                <span>Categories</span>
+                <span>الفئات</span>
                 <Icon
                     name="lucide:chevron-down"
                     id="chevron-icon"
@@ -52,7 +34,7 @@ const categories = [
                 <a
                     href="/contact"
                     class="flex items-center h-full px-2 hover:bg-white/10 transition-colors"
-                    >Contact</a
+                    >اتصل</a
                 >
             </div>
         </div>
@@ -107,17 +89,17 @@ const categories = [
             <a
                 href="/about"
                 class="flex items-center h-full px-4 hover:bg-white/10 text-white/90 hover:text-white transition-all cursor-pointer"
-                >About</a
+                >عن المصنع</a
             >
             <a
                 href="/blog"
                 class="flex items-center h-full px-4 hover:bg-white/10 text-white/90 hover:text-white transition-all cursor-pointer"
-                >Blog</a
+                >مدونة</a
             >
             <a
                 href="/contact"
                 class="flex items-center h-full px-4 hover:bg-white/10 text-white/90 hover:text-white transition-all cursor-pointer"
-                >Contact</a
+                >اتصل</a
             >
         </div>
     </div>
@@ -138,7 +120,7 @@ const categories = [
                             {cat.name}
                             {cat.subcategories && (
                                 <span class="text-[10px] opacity-40 uppercase font-bold italic">
-                                    Browse
+                                    تصفح
                                 </span>
                             )}
                         </a>
