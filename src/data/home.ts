@@ -1,23 +1,18 @@
 export const categories = [
     {
         name: "انتريهات",
-        image: "https://images.unsplash.com/photo-1586023492129-6f87c5baed96?auto=format&fit=crop&w=2000&q=80",
+        image: "/images/products/t2m-arw.jpg",
         path: "/category/انتريهات",
     },
     {
         name: "ركن",
-        image: "https://images.unsplash.com/photo-1615874959472-497e9a8c45ce?auto=format&fit=crop&w=2000&q=80",
+        image: "/images/products/rokna-sharayt.jpg",
         path: "/category/ركن",
     },
     {
         name: "صالونات",
-        image: "https://images.unsplash.com/photo-1587392927607-64f1d1ce629a?auto=format&fit=crop&w=2000&q=80",
+        image: "/images/products/salon-magistic.jpeg",
         path: "/category/صالونات",
-    },
-    {
-        name: "ترابيزات",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80",
-        path: "/category/ترابيزات",
     },
 ];
 
