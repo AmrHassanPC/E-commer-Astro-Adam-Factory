@@ -2,184 +2,69 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<footer class="bg-base-300 text-base-content pt-16 pb-8 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
-        >
-            <!-- Brand Section -->
-        <div class="col-span-1 lg:col-span-1">
-            <a href="/" class="flex items-center gap-3 mb-6 group whitespace-nowrap">
-                <div class="w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                 <img 
-                    src="/Adam-Factory-Iconic-Mark.svg" 
-                    alt="مصنع ادم للاثاث" 
-                    class="w-full h-full object-contain"
-                />
-            </div>
+<footer class="bg-base-300 text-base-content pt-16 pb-8 mt-auto" dir="rtl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-right">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             
-            <span class="text-2xl font-bold tracking-tight text-[#13182B]">
-                مصنع ادم للاثاث
-            </span>
-        </a>
-
-        <p class="text-base-content/70 mb-6 leading-relaxed">
-           مصنع اثاث فى محافظة دمياط متخصص فى صناعة الانتريهات والركن الركن والصالونات.
-        </p>
-                <!-- Socials -->
-                <div class="flex gap-4">
-                    <a
-                        href="#"
-                        class="btn btn-circle btn-sm btn-ghost hover:bg-primary/20 hover:text-primary transition-colors"
-                        aria-label="Twitter"
-                    >
-                        <Icon name="lucide:twitter" class="w-5 h-5" />
-                    </a>
-                    <a
-                        href="#"
-                        class="btn btn-circle btn-sm btn-ghost hover:bg-primary/20 hover:text-primary transition-colors"
-                        aria-label="Instagram"
-                    >
-                        <Icon name="lucide:instagram" class="w-5 h-5" />
-                    </a>
-                    <a
-                        href="#"
-                        class="btn btn-circle btn-sm btn-ghost hover:bg-primary/20 hover:text-primary transition-colors"
-                        aria-label="Github"
-                    >
-                        <Icon name="lucide:github" class="w-5 h-5" />
-                    </a>
+            <div class="col-span-1 lg:col-span-1">
+                <a href="/" class="flex items-center gap-3 mb-6 group">
+                    <div class="w-12 h-12 flex items-center justify-center">
+                        <img src="/Adam-Factory-Iconic-Mark.svg" alt="مصنع ادم" class="w-full h-full object-contain" />
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight text-[#13182B]">مصنع ادم للاثاث</span>
+                </a>
+                <p class="text-base-content/70 mb-6 leading-relaxed">
+                   مصنع اثاث فى محافظة دمياط متخصص فى صناعة الانتريهات والركن والصالونات.
+                </p>
+                <div class="flex gap-4 justify-start">
+                    <a href="https://facebook.com/profile.php?id=100070860613796" target="_blank" class="btn btn-circle btn-sm btn-ghost hover:bg-[#1877F2]/20 hover:text-[#1877F2]"><Icon name="simple-icons:facebook" class="w-5 h-5" /></a>
+                    <a href="https://instagram.com/furnitureadam" target="_blank" class="btn btn-circle btn-sm btn-ghost hover:bg-[#E4405F]/20 hover:text-[#E4405F]"><Icon name="simple-icons:instagram" class="w-5 h-5" /></a>
+                    <a href="https://wa.me/201008050002" target="_blank" class="btn btn-circle btn-sm btn-ghost hover:bg-[#25D366]/20 hover:text-[#25D366]"><Icon name="simple-icons:whatsapp" class="w-5 h-5" /></a>
                 </div>
             </div>
 
-            <!-- Links Column 1 -->
             <div>
-                <h3 class="font-bold text-lg mb-6 text-base-content/90">
-                    Shop
-                </h3>
+                <h3 class="font-bold text-lg mb-6 text-base-content/90 border-r-4 border-primary pr-3">موديلاتنا</h3>
                 <ul class="space-y-4">
-                    <li>
-                        <a
-                            href="#"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >All Products</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >Featured</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >New Arrivals</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >Discounts</a
-                        >
-                    </li>
+                    <li><a href="/products" class="text-base-content/60 hover:text-primary transition-all inline-block">جميع موديلاتنا</a></li>
+                    <li><a href="/category/انتريهات" class="text-base-content/60 hover:text-primary transition-all inline-block">أنتريهات</a></li>
+                    <li><a href="/category/ركن" class="text-base-content/60 hover:text-primary transition-all inline-block">ركن</a></li>
+                    <li><a href="/category/صالونات" class="text-base-content/60 hover:text-primary transition-all inline-block">صالونات</a></li>
+                    <li><a href="/category/خصومات" class="text-base-content/60 hover:text-primary transition-all inline-block text-red-600 font-semibold">خصومات</a></li>
                 </ul>
             </div>
 
-            <!-- Links Column 2 -->
             <div>
-                <h3 class="font-bold text-lg mb-6 text-base-content/90">
-                    Support
-                </h3>
+                <h3 class="font-bold text-lg mb-6 text-base-content/90 border-r-4 border-primary pr-3">خدمة العملاء</h3>
                 <ul class="space-y-4">
-                    <li>
-                        <a
-                            href="/contact"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >Contact Us</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/faq"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >FAQs</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/shipping"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >Shipping & Returns</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/contact"
-                            class="text-base-content/60 hover:text-primary hover:translate-x-1 transition-all inline-block"
-                            >Order Status</a
-                        >
-                    </li>
+                    <li><a href="/contact" class="text-base-content/60 hover:text-primary transition-all inline-block">تواصل معنا</a></li>
+                    <li><a href="/faq" class="text-base-content/60 hover:text-primary transition-all inline-block">الأسئلة المتكررة</a></li>
+                    <li><a href="/shipping" class="text-base-content/60 hover:text-primary transition-all inline-block">سياسة الشحن للمحافظات</a></li>
                 </ul>
             </div>
 
-            <!-- Newsletter -->
             <div>
-                <h3 class="font-bold text-lg mb-6 text-base-content/90">
-                    Stay Updated
-                </h3>
-                <p class="text-base-content/70 mb-4 text-sm">
-                    Subscribe to our newsletter for exclusive deals and tech
-                    news.
-                </p>
-                <div class="form-control w-full">
-                    <div class="relative">
-                        <input
-                            type="text"
-                            placeholder="Enter your email"
-                            class="input input-bordered w-full pr-12 focus:outline-hidden focus:border-primary"
-                        />
-                        <button
-                            class="absolute top-0 right-0 rounded-l-none btn btn-primary px-3"
-                            aria-label="Subscribe"
-                        >
-                            <Icon name="lucide:arrow-right" class="w-5 h-5" />
-                        </button>
-                    </div>
+                <h3 class="font-bold text-lg mb-6 text-base-content/90 border-r-4 border-primary pr-3">اطلب الآن</h3>
+                <p class="text-base-content/70 mb-6 text-sm">للطلب والاستفسارات، تواصل معانا مباشرة</p>
+                
+                <div class="flex flex-col gap-3">
+                    <a href="https://wa.me/201008050002" class="btn btn-md bg-[#25D366] hover:bg-[#1da851] text-white border-none flex items-center gap-2 justify-center">
+                        <Icon name="simple-icons:whatsapp" class="w-5 h-5" />
+                        تواصل عبر واتساب
+                    </a>
+                    
+                    <a href="tel:+201008050002" class="btn btn-md btn-primary flex items-center gap-2 justify-center">
+                        <Icon name="lucide:phone" class="w-5 h-5" />
+                        اتصل بنا هاتفياً
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div
-            class="border-t border-base-content/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-base-content/50"
-        >
-            <p>
-                &copy; {new Date().getFullYear()} E-COMMER. All rights reserved.
-            </p>
+        <div class="border-t border-base-content/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-base-content/50">
+            <p>© {new Date().getFullYear()} مصنع ادم للاثاث - جميع الحقوق محفوظة</p>
             <div class="flex gap-6">
-                <a href="/privacy" class="hover:text-base-content transition-colors"
-                    >Privacy Policy</a
-                >
-                <a href="/terms" class="hover:text-base-content transition-colors"
-                    >Terms of Service</a
-                >
             </div>
         </div>
     </div>
 </footer>
-
-<style>
-    .gradient-text {
-        background: linear-gradient(
-            135deg,
-            var(--color-primary) 0%,
-            #6366f1 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-</style>
