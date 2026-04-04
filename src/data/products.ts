@@ -17,29 +17,30 @@ export interface Product {
 export const products: Product[] = [
     {
         id: "1",
-        name: "MacBook Pro 16 M3 Max",
-        title: "MacBook Pro 16 M3 Max",
-        price: 3499,
-        description: "The most powerful MacBook Pro ever. With the lightning-fast M3 Max chip, advanced thermal architecture, and a stunning Liquid Retina XDR display, it's designed for those who demand the absolute best in performance and portability.",
-        category: "Computers",
-        subcategory: "notebooks",
-        stock: 5,
+        name: "انتريه سيركل",
+        title: "انتريه سيركل", // compatibility with home.ts
+        price: 26500,
+        description: "طقم انتريه سيركل مكون من 2 كنبة + 2 كرسي، الكنب قابل للفتح سرير ومناسب للاستخدام اليومي واستقبال الضيوف. الخامات تشمل خشب زان، إسفنج سوفت كثافة 35، وقماش BOSS مستورد.",
+        category: "انتريهات",
+        stock: 1,
         images: [
-            "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80"
+            "/images/products/circle/1.jpeg",
+            "/images/products/circle/2.jpeg",
+            "/images/products/circle/3.jpeg",
+            "/images/products/circle/4.jpeg",
+            "/images/products/circle/5.jpeg"
         ],
-        slug: "macbook-pro-16-m3-max",
-        badge: "Premium",
-        discount: 5,
+        slug: "circle-set",
+        badge: "New",
+        discount: 0,
         specs: [
-            { label: "Processor", value: "Apple M3 Max" },
-            { label: "Memory", value: "32GB Unified" },
-            { label: "Storage", value: "1TB SSD" },
-            { label: "Display", value: "16.2-inch XDR" }
+            { label: "العدد", value: "2 كنبة + 2 كرسي" },
+            { label: "الكنب", value: "قابل للفتح سرير" },
+            { label: "الخشب", value: "زان" },
+            { label: "السفنج", value: "سوفت كثافة 35" },
+            { label: "القماش", value: "BOSS مستورد" }
         ]
     },
-    
 ];
 
 export const getProductBySlug = (slug: string) => products.find(p => p.slug === slug);

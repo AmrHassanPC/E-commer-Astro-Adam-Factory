@@ -9,30 +9,35 @@ const mainImage =
     "https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=2000&auto=format&fit=crop";
 ---
 
-<div class="product-gallery space-y-6">
-    <!-- Main Image -->
+<link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.3/dist/photoswipe.css">
+
+<div class="product-gallery space-y-6" data-images={JSON.stringify(images)}>
     <div
-        class="aspect-4/5 md:aspect-square bg-slate-100 rounded-3xl overflow-hidden relative group border border-slate-200 shadow-inner"
+        class="aspect-auto bg-slate-100 rounded-3xl overflow-hidden relative group border border-slate-200 shadow-inner cursor-zoom-in"
+        id="open-lightbox"
     >
         <img
             id="main-product-image"
             src={mainImage}
             alt="Product View"
-            class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+            class="w-full h-auto block object-contain transition-all duration-700 group-hover:scale-105"
         />
+        <div class="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8M3 3l6 6M3 3v4.8M3 3h4.8m0 13.2H3m0 0V21m0-4.8H7.8M16.2 3H21m0 0v4.8M21 3h-4.8"/></svg>
+        </div>
     </div>
 
-    <!-- Thumbnails -->
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 items-start">
         {
             images.map((img, index) => (
                 <button
-                    class="cursor-pointer thumbnail-btn aspect-square rounded-2xl overflow-hidden border-2 transition-all p-1 bg-slate-50 border-slate-100"
+                    class="cursor-pointer thumbnail-btn aspect-auto rounded-2xl overflow-hidden border-2 transition-all p-1 bg-slate-50 border-slate-100"
                     data-image={img}
+                    data-index={index}
                 >
                     <img
                         src={img}
-                        class="w-full h-full object-cover rounded-xl"
+                        class="w-full h-auto block object-contain rounded-xl"
                         alt={`Thumbnail ${index + 1}`}
                     />
                 </button>
@@ -42,56 +47,63 @@ const mainImage =
 </div>
 
 <script>
-    function setupGallery() {
-        const mainImage = document.getElementById(
-            "main-product-image",
-        ) as HTMLImageElement;
-        const thumbnailBtns = document.querySelectorAll(".thumbnail-btn");
+    import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5.4.3/dist/photoswipe-lightbox.esm.js';
 
+    function setupGallery() {
+        const mainImage = document.getElementById("main-product-image") as HTMLImageElement;
+        const thumbnailBtns = document.querySelectorAll(".thumbnail-btn");
+        const openLightboxBtn = document.getElementById("open-lightbox");
+        const galleryContainer = document.querySelector(".product-gallery") as HTMLElement;
+        
+        // جلب مصفوفة الصور من الـ Data Attribute
+        const images = JSON.parse(galleryContainer.dataset.images || "[]");
+        let currentIndex = 0;
+
+        // 1. تحديث الصورة الكبيرة عند الضغط على الـ Thumbnail
         thumbnailBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
                 const newSrc = btn.getAttribute("data-image");
+                currentIndex = parseInt(btn.getAttribute("data-index") || "0");
+                
                 if (newSrc && mainImage) {
                     mainImage.src = newSrc;
-
-                    // Update active state
+                    
+                    // تحديث الحالة النشطة للزرار
                     thumbnailBtns.forEach((b) => {
-                        b.classList.remove(
-                            "border-primary",
-                            "bg-white",
-                            "ring-4",
-                            "ring-primary/10",
-                        );
+                        b.classList.remove("border-primary", "bg-white", "ring-4", "ring-primary/10");
                         b.classList.add("border-slate-100", "bg-slate-50");
                     });
-
-                    btn.classList.add(
-                        "border-primary",
-                        "bg-white",
-                        "ring-4",
-                        "ring-primary/10",
-                    );
+                    btn.classList.add("border-primary", "bg-white", "ring-4", "ring-primary/10");
                     btn.classList.remove("border-slate-100", "bg-slate-50");
                 }
             });
         });
 
-        // Mark first thumbnail as active initially
-        if (thumbnailBtns[0]) {
-            thumbnailBtns[0].classList.add(
-                "border-primary",
-                "bg-white",
-                "ring-4",
-                "ring-primary/10",
-            );
-            thumbnailBtns[0].classList.remove(
-                "border-slate-100",
-                "bg-slate-50",
-            );
-        }
+        // 2. إعداد PhotoSwipe لفتح الصور Full Screen
+        const lightbox = new PhotoSwipeLightbox({
+            dataSource: images.map((img: string) => ({
+                src: img,
+                width: 1600, // مقاسات تقريبية للجودة العالية
+                height: 1200,
+            })),
+            pswpModule: () => import('https://unpkg.com/photoswipe@5.4.3/dist/photoswipe.esm.js')
+        });
+        lightbox.init();
+
+        // فتح المعرض عند الضغط على الصورة الكبيرة
+        openLightboxBtn?.addEventListener('click', () => {
+            lightbox.loadAndOpen(currentIndex);
+        });
     }
 
-    // Initialize on page load and on view transitions
+    // التشغيل
     setupGallery();
     document.addEventListener("astro:page-load", setupGallery);
 </script>
+
+<style>
+    /* كلاس لجعل الماوس علامة تكبير */
+    .cursor-zoom-in {
+        cursor: zoom-in;
+    }
+</style>
