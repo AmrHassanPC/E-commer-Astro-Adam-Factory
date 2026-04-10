@@ -31,10 +31,9 @@ export const products: Product[] = [
             "/images/products/circle/5.jpeg"
         ],
         slug: "circle-set",
-        badge: "New",
         discount: 0,
         specs: [
-            { label: "العدد", value: "2 كنبة + 2 كرسي" },
+            { label: "العدد", value: "2 كنبة + 2 كرسي " },
             { label: "الكنب", value: "قابل للفتح سرير" },
             { label: "الخشب", value: "زان" },
             { label: "السفنج", value: "سوفت كثافة 35" },
