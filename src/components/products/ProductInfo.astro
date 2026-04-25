@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import FaqSection from "../ui/FaqSection.astro";
 
 interface Product {
     name: string;
@@ -11,6 +12,7 @@ interface Product {
     image?: string;
     images?: string[];
     specs?: { label: string; value: string }[];
+    badge?: string;
 }
 
 interface Props {
@@ -18,14 +20,14 @@ interface Props {
 }
 
 const { product } = Astro.props;
-
 const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
+const productId = product.name.toLowerCase().replace(/\s+/g, "-");
 ---
 
 <div
     class="product-info space-y-10"
     data-product={JSON.stringify({
-        id: product.name.toLowerCase().replace(/\s+/g, "-"), // fallback
+        id: productId,
         name: product.name,
         price: product.price,
         image: product.image || (product as any).images?.[0] || "",
@@ -34,219 +36,166 @@ const discountedPrice = product.price * (1 - (product.discount || 0) / 100);
         stock: product.stock,
     })}
 >
-    <!-- Header Info -->
     <div class="space-y-4">
-        <span
-            class="text-primary font-black uppercase text-xs tracking-[0.3em] italic"
-        >
-            {product.category}
-            {product.badge ? `/ ${product.badge}` : ""}
+        <span class="text-primary font-black uppercase text-xs tracking-[0.3em] italic">
+            {product.category} {product.badge ? `/ ${product.badge}` : ""}
         </span>
-        <h1
-            class="text-4xl md:text-5xl font-black text-slate-950 uppercase tracking-tighter leading-tight"
-        >
+        <h1 class="text-4xl md:text-5xl font-black text-slate-950 uppercase tracking-tighter leading-tight">
             {product.name}
         </h1>
         <div class="flex items-center gap-4">
             <div class="flex flex-col">
                 {product.discount > 0 && (
                     <span class="text-sm font-bold text-slate-400 line-through decoration-red-500/50">
-                        {product.price.toLocaleString()}
-                        &nbsp;ج.م
+                        {product.price.toLocaleString()} ج.م
                     </span>
                 )}
                 <span class="text-4xl font-black text-slate-900">
-                    {discountedPrice.toLocaleString(undefined, {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                    })} ج.م
+                    {discountedPrice.toLocaleString()} ج.م
                 </span>
             </div>
-            <div class="flex flex-col gap-2">
-                {product.discount > 0 && (
-                    <span class="badge bg-red-50 text-red-600 border-none font-black px-3 py-1 text-[10px] uppercase tracking-widest">
-                        وفر {product.discount}%!
-                    </span>
-                )}
-                {product.stock > 0 ? (
-                    <span class="badge bg-emerald-50 text-emerald-600 border-none font-bold p-3">
-                        متوفر
-                    </span>
-                ) : (
-                    <span class="badge bg-red-50 text-red-600 border-none font-bold p-3">
-                        غير متوفر
-                    </span>
-                )}
-            </div>
+            {product.stock > 0 ? (
+                <span class="badge bg-emerald-50 text-emerald-600 border-none font-bold p-3">متوفر</span>
+            ) : (
+                <span class="badge bg-red-50 text-red-600 border-none font-bold p-3">نفذت الكمية</span>
+            )}
         </div>
     </div>
 
-    <!-- Description -->
     <div class="space-y-4">
-        <h3
-            class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400"
+        <div class="flex flex-row gap-3 w-full">
+            <div class="flex-[0.3] min-w-[120px] flex items-center bg-slate-900 border-2 border-slate-100 rounded-2xl p-1 shadow-sm justify-between">
+                <button id="decrement-qty" class="flex items-center justify-center p-2 sm:p-4 hover:bg-slate-800 cursor-pointer rounded-xl transition-colors text-white">
+                    <Icon name="lucide:minus" class="w-[16px] h-[16px]" />
+                </button>
+                <span id="quantity-display" class="text-white font-black text-lg">1</span>
+                <button id="increment-qty" class="flex items-center justify-center p-2 sm:p-4 hover:bg-slate-800 cursor-pointer rounded-xl transition-colors text-white">
+                    <Icon name="lucide:plus" class="w-[16px] h-[16px]" />
+                </button>
+            </div>
+
+            <button
+                id="cart-toggle-btn"
+                class="flex-[0.7] bg-slate-950 text-white rounded-2xl py-5 font-black uppercase tracking-widest text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-slate-800 transition-all active:scale-[0.98] cursor-pointer"
+                disabled={product.stock <= 0}
+            >
+                <Icon name="lucide:shopping-cart" class="w-5 h-5" />
+                <span id="cart-btn-text">إضافة للسلة</span>
+            </button>
+        </div>
+
+        <button
+            id="whatsapp-btn"
+            class="w-full bg-emerald-500 text-white rounded-2xl py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-emerald-600 transition-all cursor-pointer shadow-lg shadow-emerald-500/10"
         >
-            تفاصيل المنتج
-        </h3>
-        <p class="text-slate-600 font-medium leading-relaxed text-lg">
-            {
-                product.description ||
-                    "ما فيش تفاصيل متاحة حالياً عن هذا المنتج."
-            }
-        </p>
+            <Icon name="simple-icons:whatsapp" class="w-6 h-6" />
+            اطلب عبر واتساب
+        </button>
+
+        <a
+            href="tel:+201008050002"
+            class="w-full bg-slate-100 text-slate-900 rounded-2xl py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-slate-200 transition-all no-underline text-center"
+        >
+            <Icon name="lucide:phone" class="w-5 h-5" />
+            استعلام هاتفي
+        </a>
     </div>
 
-    <!-- Specs Grid -->
-    {
-        product.specs && (
+    <div class="space-y-8 pt-6 border-t border-slate-100">
+        <div class="space-y-4">
+            <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">وصف الموديل</h3>
+            <p class="text-slate-600 font-medium leading-relaxed text-lg">
+                {product.description || "لا يوجد وصف متاح لهذا المنتج حالياً."}
+            </p>
+        </div>
+
+        {product.specs && (
             <div class="grid grid-cols-2 gap-6 p-8 bg-slate-50 rounded-3xl border border-slate-100">
                 {product.specs.map((spec) => (
                     <div class="space-y-1">
-                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                            {spec.label}
-                        </p>
-                        <p class="text-sm font-bold text-slate-900 uppercase italic">
-                            {spec.value}
-                        </p>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">{spec.label}</p>
+                        <p class="text-sm font-bold text-slate-900 uppercase italic">{spec.value}</p>
                     </div>
                 ))}
             </div>
-        )
-    }
-
-    <!-- Purchase Actions -->
-    <div class="space-y-6 pt-4">
-        <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4">
-            <!-- Quantity Selector -->
-            <div
-                class="flex items-center bg-slate-900 border-2 border-slate-100 rounded-2xl p-1 shadow-sm w-fit sm:w-auto"
-            >
-                <button
-                    id="decrement-qty"
-                    class="flex items-center justify-center p-4 hover:bg-slate-800 cursor-pointer rounded-xl transition-colors text-white disabled:opacity-30"
-                >
-                    <Icon name="lucide:minus" class="w-[18px] h-[18px]" />
-                </button>
-
-                <span
-                    id="quantity-display"
-                    class="w-12 text-center text-white font-black text-xl"
-                    >1</span
-                >
-
-                <button
-                    id="increment-qty"
-                    class="flex items-center justify-center p-4 hover:bg-slate-800 cursor-pointer rounded-xl transition-colors text-white disabled:opacity-30"
-                >
-                    <Icon name="lucide:plus" class="w-[18px] h-[18px]" />
-                </button>
-            </div>
-
-            <!-- Add to Cart -->
-            <button
-                id="add-to-cart-btn"
-                class="w-full bg-primary text-white rounded-2xl py-5 px-8 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-primary/80 transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={product.stock <= 0}
-            >
-                <Icon name="simple-icons:whatsapp" class="w-5 h-5" />
-                اطلب الآن عبر واتساب
-            </button>
-
-            <!-- Buy Now -->
-            <button
-                id="buy-now-btn"
-                class="sm:col-span-2 w-full bg-secondary text-black rounded-2xl py-5 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-4 hover:bg-secondary/80 transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={product.stock <= 0}
-            >
-                <Icon name="lucide:phone" class="w-5 h-5" />
-                استعلام سريع
-            </button>
-        </div>
+        )}
     </div>
+</div>
 
-    <!-- Trust Badges -->
-    <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-slate-100"
-    >
-        <div class="flex items-center gap-3 text-slate-500">
-            <Icon name="lucide:shield-check" class="w-5 h-5 text-emerald-500" />
-            <span class="text-[10px] uppercase font-bold tracking-widest"
-                >Certified Warranty</span
-            >
+<div class="pt-10 border-t border-slate-100">
+        <div class="flex items-center gap-3 mb-6">
+            <Icon name="lucide:help-circle" class="w-6 h-6 text-slate-900" />
+            <h3 class="text-xl font-black uppercase tracking-tight text-slate-900">الأسئلة الشائعة</h3>
         </div>
-        <div class="flex items-center gap-3 text-slate-500">
-            <Icon name="lucide:truck" class="w-5 h-5 text-amber-500" />
-            <span class="text-[10px] uppercase font-bold tracking-widest"
-                >Insured Shipping 24/48h</span
-            >
-        </div>
+        
+        <FaqSection /> 
     </div>
 </div>
 
 <script>
     import { toast } from "sonner";
+    import { cartItems, addToCart, removeFromCart, openCart } from "../../store/cartStore";
 
-    function setupPurchaseActions() {
-        const productInfo = document.querySelector(".product-info");
-        if (!productInfo) return;
+    function initProductPage() {
+        const productContainer = document.querySelector(".product-info") as HTMLElement;
+        if (!productContainer) return;
 
-        const product = JSON.parse(
-            productInfo.getAttribute("data-product") || "{}",
-        );
-        const decrementBtn = document.getElementById("decrement-qty");
-        const incrementBtn = document.getElementById("increment-qty");
-        const quantityDisplay = document.getElementById("quantity-display");
-        const addToCartBtn = document.getElementById("add-to-cart-btn");
-        const buyNowBtn = document.getElementById("buy-now-btn");
+        const productData = JSON.parse(productContainer.getAttribute("data-product") || "{}");
+        const decBtn = document.getElementById("decrement-qty");
+        const incBtn = document.getElementById("increment-qty");
+        const qtyDisplay = document.getElementById("quantity-display");
+        const cartBtn = document.getElementById("cart-toggle-btn");
+        const cartBtnText = document.getElementById("cart-btn-text");
+        const whatsappBtn = document.getElementById("whatsapp-btn");
 
-        const whatsappNumber = "201008050002"; // عيّن رقم واتساب المصنع هنا
+        let currentQty = 1;
 
-        const createWhatsappUrl = (qty) => {
-            const message = `السلام عليكم، أنا مهتم بـ ${product.name} السعر ${product.price} ج.م. الكمية: ${qty}.`;
-            return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        // تحديث العداد (للديكور كما طلبت، ومع ذلك سيعمل داخلياً)
+        const updateQtyUI = () => {
+            if (qtyDisplay) qtyDisplay.textContent = String(currentQty);
         };
 
+        decBtn?.addEventListener("click", () => { if (currentQty > 1) { currentQty--; updateQtyUI(); } });
+        incBtn?.addEventListener("click", () => { if (currentQty < 99) { currentQty++; updateQtyUI(); } });
 
-        let quantity = 1;
-
-        const updateUI = () => {
-            if (quantityDisplay) quantityDisplay.textContent = String(quantity);
-            if (decrementBtn)
-                (decrementBtn as HTMLButtonElement).disabled = quantity <= 1;
-            if (incrementBtn)
-                (incrementBtn as HTMLButtonElement).disabled =
-                    quantity >= product.stock;
-        };
-
-        decrementBtn?.addEventListener("click", () => {
-            if (quantity > 1) {
-                quantity--;
-                updateUI();
+        // متابعة حالة السلة لتغيير الزرار
+        cartItems.subscribe(items => {
+            const isItemInCart = items.some(item => item.id === productData.id);
+            if (cartBtn && cartBtnText) {
+                if (isItemInCart) {
+                    cartBtn.classList.replace("bg-slate-950", "bg-red-500");
+                    cartBtnText.textContent = "حذف من السلة";
+                } else {
+                    cartBtn.classList.replace("bg-red-500", "bg-slate-950");
+                    cartBtnText.textContent = "إضافة للسلة";
+                }
             }
         });
 
-        incrementBtn?.addEventListener("click", () => {
-            if (quantity < product.stock) {
-                quantity++;
-                updateUI();
+        // تنفيذ الإضافة/الحذف
+        cartBtn?.addEventListener("click", () => {
+            const items = cartItems.get();
+            const isItemInCart = items.some(item => item.id === productData.id);
+
+            if (isItemInCart) {
+                removeFromCart(productData.id);
+                toast.error("تم الحذف من السلة");
+            } else {
+                const result = addToCart(productData, currentQty);
+                if (result.success) {
+                    toast.success("تمت الإضافة للسلة");
+                    openCart();
+                }
             }
         });
 
-        addToCartBtn?.addEventListener("click", () => {
-            const whatsappUrl = createWhatsappUrl(quantity);
-            window.open(whatsappUrl, "_blank");
-            toast.success("تم فتح واتساب للطلب. إحنا هنرد عليك خلال دقائق.");
+        // واتساب
+        whatsappBtn?.addEventListener("click", () => {
+            const msg = `السلام عليكم، مهتم بطلب ${productData.name}، كمية: ${currentQty}`;
+            window.open(`https://wa.me/201008050002?text=${encodeURIComponent(msg)}`, "_blank");
         });
-
-        buyNowBtn?.addEventListener("click", () => {
-            const whatsappUrl = createWhatsappUrl(quantity);
-            window.open(whatsappUrl, "_blank");
-            toast.success("تم فتح واتساب للاستعلام السريع. إحنا هنرد عليك خلال دقائق.");
-        });
-
-        updateUI();
     }
 
-    setupPurchaseActions();
-    document.addEventListener("astro:page-load", setupPurchaseActions);
+    initProductPage();
+    document.addEventListener("astro:page-load", initProductPage);
 </script>
