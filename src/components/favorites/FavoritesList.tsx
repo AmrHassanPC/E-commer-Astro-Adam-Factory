@@ -76,7 +76,7 @@ export default function FavoritesList() {
 
                         <div className="flex items-center justify-between mt-4">
                             <span className="text-xl font-bold text-primary">
-                                ${product.price.toLocaleString("en-US")}
+                                {product.price.toLocaleString()} ج.م
                             </span>
                             <button
                                 onClick={() => handleAddToCart(product)}

@@ -110,7 +110,7 @@ const { title, price, images, stock, slug } = Astro.props;
 
         <div class="flex items-center justify-between mt-2">
             <span class="text-xl font-bold text-primary">
-                ${price.toLocaleString("en-US")}
+                {price.toLocaleString()} ج.م
             </span>
             <div class="flex items-center gap-1 text-xs font-medium">
                 {

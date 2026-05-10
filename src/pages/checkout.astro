@@ -69,10 +69,13 @@ import { Icon } from "astro-icon/components";
     const ticketDate = document.getElementById("ticket-date");
     const ticketId = document.getElementById("ticket-id");
 
-    const formatPrice = (price: number) =>
-        new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
-            .format(price)
-            .replace("$", "$ ");
+    const formatPrice = (price: number) => {
+        const formatted = new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+        }).format(price);
+        return `${formatted} ج.م`;
+    };
 
     form?.addEventListener("submit", (e) => {
         e.preventDefault();

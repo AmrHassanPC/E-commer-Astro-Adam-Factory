@@ -30,7 +30,7 @@ import { Icon } from "astro-icon/components";
             class="flex justify-between text-slate-500 font-bold text-xs uppercase tracking-widest"
         >
             <span>Subtotal</span>
-            <span id="checkout-subtotal">$ 0</span>
+            <span id="checkout-subtotal">0 ج.م</span>
         </div>
         <div
             class="flex justify-between text-slate-500 font-bold text-xs uppercase tracking-widest"
@@ -43,7 +43,7 @@ import { Icon } from "astro-icon/components";
             class="hidden justify-between text-emerald-600 font-black text-xs uppercase tracking-widest bg-emerald-50 p-2 rounded-lg"
         >
             <span>Total Savings</span>
-            <span id="checkout-savings">-$ 0</span>
+            <span id="checkout-savings">-0 ج.م</span>
         </div>
         <div
             class="flex justify-between items-center pt-4 mt-2 border-t-2 border-slate-100 border-dashed"
@@ -54,7 +54,7 @@ import { Icon } from "astro-icon/components";
             >
             <span
                 id="checkout-total"
-                class="text-3xl font-black text-slate-950 italic">$ 0</span
+                class="text-3xl font-black text-slate-950 italic">0 ج.م</span
             >
         </div>
     </div>
@@ -84,10 +84,13 @@ import { Icon } from "astro-icon/components";
         "checkout-savings-container",
     );
 
-    const formatPrice = (price: number) =>
-        new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
-            .format(price)
-            .replace("$", "$ ");
+    const formatPrice = (price: number) => {
+        const formatted = new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+        }).format(price);
+        return `${formatted} ج.م`;
+    };
 
     cartItems.subscribe((items) => {
         if (!itemsContainer) return;
